@@ -62,3 +62,16 @@ As always, loop through all values and compare to others in the array A for non-
 this is indicated by a remainder <> 0.
 
 This is known to be O(n<sup>2</sup>) performance.
+
+## Background
+
+The recommended solution includes reference to the algorithm known as the Seive of Eratosthenes.
+
+The Codility lesson task includes a link to a document about the algorithm [here](https://codility.com/media/train/9-Sieve.pdf).
+
+There are more details on wikipedia:
+
+- for the Seive of Eratosthenes [here](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) 
+- for factorization [here](https://en.wikipedia.org/wiki/Factorization); we are interested in interested in integer factorization
+
+(more to come...)
