@@ -72,6 +72,6 @@ The Codility lesson task includes a link to a document about the algorithm [here
 There are more details on wikipedia:
 
 - for the Seive of Eratosthenes [here](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) 
-- for factorization [here](https://en.wikipedia.org/wiki/Factorization); we are interested in interested in integer factorization
+- for factorization [here](https://en.wikipedia.org/wiki/Factorization); we are interested in integer factorization
 
 (more to come...)
