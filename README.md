@@ -53,3 +53,12 @@ Write an efficient algorithm for the following assumptions:
 
 - N is an integer within the range [1..50,000];
 - each element of array A is an integer within the range [1..2 * N].
+
+# Solutions
+
+## Naive Solution
+
+As always, loop through all values and compare to others in the array A for non-divisor;
+this is indicated by a remainder <> 0.
+
+This is known to be O(n<sup>2</sup>) performance.
