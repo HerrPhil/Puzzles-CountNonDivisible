@@ -25,8 +25,6 @@ public class NaiveSolution {
         Arrays.fill(counts, 0);
         for (int i = 0; i < N; i++) {
 
-            iterations++;
-
             int dividend = A[i];
 
             for (int j = 0; j < N; j++) {
