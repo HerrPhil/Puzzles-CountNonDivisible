@@ -141,7 +141,7 @@ and is beyond the scope of this article.
 ### Explanation of applying Sieve of Eratosthenes to Prime Factorization
 
 Factorization is the process of decomposition into prime factors. More precisely, for a given
-number *x* we want to find primes *p*<sub>1, *p*<sub>2</sub>, ..., *p*<sub>k</sub> whose product equals *x*.
+number *x* we want to find primes *p*<sub>1</sub>, *p*<sub>2</sub>, ..., *p*<sub>k</sub> whose product equals *x*.
 
 Use of the sieve enables fast factorization. Let's modify the sieve algorithm slightly.
 For every crossed number we will remember the smallest prime that divides this number.
@@ -204,4 +204,32 @@ For computing the factorization of an integer *n*, one needs an algorithm for fi
 or deciding that *n* is prime. When such a divisor is found, the repeated application of this algorithm
 to the factors *q* and *n* / *q* gives eventually the complete factorization of *n*.
 
-For finding a divisor of *n* (to be continued)
+For finding a divisor *q* of *n*, if any, it suffices to test all values of q such that
+1 < *q* and *q*<sup>2</sup>. In fact, if *r* is a divisor of *n* such that r<sup>2</sup> > *n*,
+then *q* = *n* / *r* is a divisor of *n* such that *q*<sup>2</sup> <= *n*.
+
+If one tests the values of *q* in increasing order, the first divisor that is found is necessarily a prime number,
+and the *cofactor* *r* = *n* / *q* cannot have any divisor smaller than *q*. For getting the complete factorization,
+it suffices thus to continue the algorithm by searching a divisor of *r* that is not smaller than *q*
+and not greater than √*r*.
+
+There is no need to test all values of *q* for applying the method. In principle, it suffices to test only prime divisors.
+This needs to have a table of prime numbers that may be generated for example with the sieve of Eratosthenes.
+As the method of factorization does essentially the same work as the sieve of Eratosthenes, it is generally
+more efficient to test for a divisor only those numbers for which it is not immediately clear whether they are prime or not.
+Typically one may proceed by testing 2, 3, 5 and the numbers >5, whose last digit is 1, 3, 7, 9
+and the sum of the digits is not a multiple of 3.
+
+This method works well for factoring small integers, but is inefficient for larger integers.
+For example, Pierre d Fermat was unable to discover that the 6th Fermat number:
+
+1 + 2<sup>2</sup><sup>5</sup> = 1 + 2<sup>32</sup> = 4, 294, 967, 297
+
+is not a prime number. In fact, applying the above method would require more than 10,000 divisions,
+for a number that has 10 decimal digits.
+
+There are more efficient factoring algorithms. However they remain relatively inefficient, as, with the
+present state of the art, one cannot factorize, even with more powerful computers, a number of 500 decimal digits
+that is the product of two randomly chosen prime numbers. This ensure the security of the RSA cryptosystem,
+which is widely used to secure internet communication.
+
