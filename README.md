@@ -188,3 +188,20 @@ def factorization(x, F):
 Number *x* cannot have more than log *x* prime factors, because every prime factor is >= 2.
 Factorization by the above method works in *O*(log *x*) time complexity. Note that consecutive
 factors will be presented in non-decreasing order.
+
+## Recommended Solution
+
+For the recommended solution, the abstract thinking required is to realize that, instead of prime factorization,
+the solution should do integer factorization.
+
+### Integer Factorization
+
+By the fundamental theorem of arithmetic, every integer greater than 1 has a unique (up to the order of factors)
+factorization into prime numbers, which are those integers which cannot be further factorized
+into the product of integers greater than one.
+
+For computing the factorization of an integer *n*, one needs an algorithm for find a divisor *q* of *n*
+or deciding that *n* is prime. When such a divisor is found, the repeated application of this algorithm
+to the factors *q* and *n* / *q* gives eventually the complete factorization of *n*.
+
+For finding a divisor of *n* (to be continued)
