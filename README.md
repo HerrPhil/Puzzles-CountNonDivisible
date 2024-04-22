@@ -74,4 +74,117 @@ There are more details on wikipedia:
 - for the Seive of Eratosthenes [here](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) 
 - for factorization [here](https://en.wikipedia.org/wiki/Factorization); we are interested in integer factorization
 
-(more to come...)
+## Sieve of Eratosthenes
+
+The point of discussing the Sieve of Eratosthenes is to prepare for a factorization example.
+
+The underlying, efficient solution for this lesson task is to utilize factorization.
+
+Let us proceed with the theory.
+
+### Explanation of Sieve of Erastosthenes (see the codility PDF)
+
+The Sieve of Eratosthenes is a very simple and popular technique for finding all the prime numbers
+in the range from 2 to a given number *n*. The algorithm takes its name from the process of sieving -
+in a simple way we remove multiples of consecutive numbers.
+
+Initially, we have the set of all the numbers {2, 3, ..., n}. At each step we choose the
+smallest number in the set and remove all its multiples. Notice that every composite number
+has a divisor of at most √n. In particular, it has a divisor which is a prime number. It
+is sufficient to remove only multiples of prime numbers not exceeding √n. In this way, all
+composite numbers will be removed.
+
+For an example, suppose n = 17.
+
+First, we remove the multiples of the smallest element in the set, which is 2.
+The element remaining in the set is 3, and we also remove its multiples, and so on.
+
+```
+  2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
+  2 3   5   7   9    11    13    15    17
+  2 3   5   7        11    13          17
+
+  there are no elements to remove for 5; stop algorithm 5 is greater than √n
+```
+
+The above algorithm can be slightly improved. Notice that we need not cross out multiples
+of *i* which are less than *i*<sup>2</sup>. Such multiples are of the form k*i, where k < i.
+These have already been removed by one of the prime divisors of *k*. After this improvement,
+we obtain the following implementation:
+
+```
+def sieve(n):
+    sieve = [True] * (n + 1)
+    sieve[0] = sieve[1] = False
+    i = 2
+    while (i * i <= n):
+        if (sieve[i]):
+            k = i * i
+            while (k <= n):
+                sieve[k] = False
+                k += i
+        i += 1
+    return sieve
+```
+
+Let's analyze the time complexity of the above algorithm. For each prime number *p*<sub>j</sub> <= √n
+we cross out at most *n* / *p*<sub>j</sub>, so we get the following numbrs of operations:
+
+n/2 + n/3 + n/5 + ...
+ = sum(all pj less than or equal to n) *n* / *p*<sub>j</sub>
+ = n * sum(all pj less than or equal to n) 1 / *p*<sub>j</sub>
+
+The sum of the reciprocals of the primes *p*<sub>j</sub> <= *n* equals asymtotically *O*(log log *n*).
+So the overall time complexity of this algorithm is *O*(*n* log log *n*). The proof is not trivial,
+and is beyond the scope of this article.
+
+### Explanation of applying Sieve of Eratosthenes to Prime Factorization
+
+Factorization is the process of decomposition into prime factors. More precisely, for a given
+number *x* we want to find primes *p*<sub>1, *p*<sub>2</sub>, ..., *p*<sub>k</sub> whose product equals *x*.
+
+Use of the sieve enables fast factorization. Let's modify the sieve algorithm slightly.
+For every crossed number we will remember the smallest prime that divides this number.
+
+```
+def arrayF(n):
+    F = [0] * (n + 1)
+    sieve[0] = sieve[1] = False
+    i = 2
+    while (i * i <= n):
+        if (F[i] == 0):
+            k = i * i
+            while (k <= n):
+                if (F[k] == 0):
+                    F[k] = i // smallest prime
+                k += i
+        i += 1
+    return F
+```
+
+For example, take an array *F* with a value *n* = 20:
+
+```
+smallest primes:   0  0  2  0  2  0  2  3  2  0  2  0  2  3  2  0  2  0  2
+values (indices):  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+```
+
+With this approach we can factorize numbers vary quickly. If we know that one of the prime
+factors of *x* is *p*, then all the prime factors of *x* are *p* plus the decomposition of *x* / *p*.
+
+
+Factorization of x in *O*(log *x*)
+
+```
+def factorization(x, F):
+    primeFactors = []
+    while (F[x] > 0):
+        primeFactors += [F[x]]
+        x /= F[x]
+    primeFactors += x
+    return primeFactors
+```
+
+Number *x* cannot have more than log *x* prime factors, because every prime factor is >= 2.
+Factorization by the above method works in *O*(log *x*) time complexity. Note that consecutive
+factors will be presented in non-decreasing order.
