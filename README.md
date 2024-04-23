@@ -232,4 +232,3 @@ There are more efficient factoring algorithms. However they remain relatively in
 present state of the art, one cannot factorize, even with more powerful computers, a number of 500 decimal digits
 that is the product of two randomly chosen prime numbers. This ensure the security of the RSA cryptosystem,
 which is widely used to secure internet communication.
-
